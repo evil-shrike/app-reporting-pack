@@ -2,8 +2,7 @@
   "name": "app-reporting-pack-installer",
   "options": {
     "allow-unauthenticated": true,
-    "port": 7681,
-    "memory": "8192Mi"
+    "port": 7681
   },
   "build": {
     "skip": false
