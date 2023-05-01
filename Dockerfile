@@ -1,11 +1,12 @@
 FROM google/cloud-sdk:alpine
-RUN apk add --update nodejs npm
-RUN apk update &&  apk add --no-cache bash ttyd tzdata sudo nano curl
+RUN apk add --update --no-cache py3-pip bash ttyd tzdata sudo nano curl
 EXPOSE 7681/tcp
 WORKDIR /app
 
 # Install Python
 #RUN apt-get install python3-pip
+RUN python3 -m ensurepip && \
+    pip install --upgrade pip
 
 # Install ARP with dependencies
 COPY requirements.txt requirements.txt
