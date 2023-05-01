@@ -1,10 +1,12 @@
 {
-  "name": "app-reporting-pack",
+  "name": "app-reporting-pack-installer",
   "options": {
-    "port": 7681,
     "allow-unauthenticated": true,
-    "memory": "8192Mi",
-    "cpu": "2"
+    "port": 7681,
+    "memory": "8192Mi"
+  },
+  "build": {
+    "skip": false
   },
   "hooks": {
     "prebuild": {
@@ -14,5 +16,4 @@
       "commands": ["./gcp/cloud-run-button/postcreate.sh"]
     }
   }
-
 }
