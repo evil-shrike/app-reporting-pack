@@ -1,5 +1,5 @@
 FROM google/cloud-sdk:alpine
-RUN apk add --update --no-cache py3-pip python-dev gcc bash ttyd tzdata sudo nano curl
+RUN apk add --update --no-cache py3-pip gcc bash ttyd tzdata sudo nano curl
 EXPOSE 7681/tcp
 WORKDIR /app
 
