@@ -1,8 +1,8 @@
 {
   "name": "app-reporting-pack-installer",
   "options": {
-    "allow-unauthenticated": true,
-    "port": 7681
+    "allow-unauthenticated": false,
+    "port": 80
   },
   "build": {
     "skip": false
