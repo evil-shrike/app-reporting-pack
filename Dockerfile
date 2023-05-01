@@ -7,4 +7,4 @@ WORKDIR /app
 RUN python3 -m ensurepip && \
     pip install --upgrade pip
 
-CMD ["python3", "-m", "SimpleHTTPServer", "80"]
+CMD ["python3", "-m", "http.server", "80"]
