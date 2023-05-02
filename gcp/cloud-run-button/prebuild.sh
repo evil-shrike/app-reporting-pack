@@ -22,7 +22,7 @@ while [[ $USE_GOOGLE_ADS_CONFIG = "Y" || $USE_GOOGLE_ADS_CONFIG = "y" ]]; do
   fi
   if [[ ! -f ./google-ads.yaml ]]; then    
     echo -e "${RED}Could not found google-ads.yaml config file${NC}"
-    echo -n "Please upload google-ads.yaml and enter 'Y' or press Enter to skip: "
+    echo -n "Please upload google-ads.yaml and enter 'Y' or enter 'N' to skip: "
     read -r USE_GOOGLE_ADS_CONFIG
   else
     break
@@ -31,21 +31,6 @@ done
 
 gcloud config set project $GOOGLE_CLOUD_PROJECT
 
-
-# Install ARP dependencies
-echo -e "${CYAN}Creating Python virtual environment...${WHITE}"
-python3 -m venv .venv
-. .venv/bin/activate
-python3 -m pip install -r requirements.txt
-
-# generate ARP configuration
-echo -e "${CYAN}Generating App Reporting pack configuration...${WHITE}"
-RUNNING_IN_GCE=true
-export RUNNING_IN_GCE   # signaling to run-local.sh that we're runnign inside GCE (there'll be less questions)
-./run-local.sh --generate-config-only
-
-# deploy solution
-echo -e "${CYAN}Deploying Cloud components...${WHITE}"
-./gcp/setup.sh deploy_public_index deploy_all start
+./gcp/install.sh
 
 echo -e "${CYAN}Please ignore all output below${WHITE}"
