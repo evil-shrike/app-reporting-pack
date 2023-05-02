@@ -1,12 +1,14 @@
 #!/bin/bash
 set -e
 #set -x
+# reset console colors:
+tput init
 
 cd ../..
 
+NC='\033[0m' # No Color
 RED='\033[0;31m' # Red Color
 CYAN='\033[0;36m' # Cyan
-NC='\033[0m' # No Color
 WHITE='\033[0;37m'  # White
 
 echo -n -e "${WHITE}[ ? ] Would you like to use a google-ads.yaml (Y/n) - if so, please upload a file using Cloud Shell menu in the top right corner (otherewise you'll be asked to enter credentials later): ${NC}"

@@ -1,4 +1,4 @@
-FROM google/cloud-sdk:alpine
+FROM python:alpine
 RUN apk add --update --no-cache py3-pip
 EXPOSE 80/tcp
 WORKDIR /app
