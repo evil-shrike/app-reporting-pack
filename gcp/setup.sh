@@ -229,7 +229,7 @@ start() {
     echo -e "${CYAN}[ * ] To access your new dashboard, click this link - ${GREEN}https://storage.googleapis.com/${INDEX_PATH}/index.html${NC}"
   else
     echo -e "${CYAN}[ * ] Your GCP project does not allow public access.${NC}"
-    echo -e "${CYAN}[ * ] To create your dashboard template, please run the ${GREEN}create_dashboard${CYAN} shell script once the installation process completes and all the relevant tables have been created in the DB.${NC}"
+    echo -e "${CYAN}[ * ] To create your dashboard template, please run the ${GREEN}./scripts/create_dashboard.sh -c app_reporting_pack.yaml -L{CYAN} shell script once the installation process completes and all the relevant tables have been created in the DB.${NC}"
   fi
 }
 

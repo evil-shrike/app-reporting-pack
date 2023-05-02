@@ -18,7 +18,6 @@
 . ./scripts/shell_utils/functions.sh
 
 set -e
-tput init
 
 COLOR='\033[0;36m' # Cyan
 NC='\033[0m' # No color
