@@ -2,6 +2,8 @@
 set -e
 #set -x
 
+cd ../..
+
 RED='\033[0;31m' # Red Color
 CYAN='\033[0;36m' # Cyan
 NC='\033[0m' # No Color
