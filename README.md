@@ -57,6 +57,9 @@ To install this solution, follow these steps:
 1. Click "Run on Google Cloud"
    [![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
 
+
+   [![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run?dir=gcp/cloud-run-button)
+
 1. Select your GCP project and choose your region.
 
 1. When prompted, paste in your client ID, client secret, refresh token, developer token and MCC ID. After inputing all credentials, the deployment will start.

@@ -23,50 +23,24 @@ while [[ $USE_GOOGLE_ADS_CONFIG = "Y" || $USE_GOOGLE_ADS_CONFIG = "y" ]]; do
     break
   fi
 done
-if [[ $USE_GOOGLE_ADS_CONFIG = "Y" || $USE_GOOGLE_ADS_CONFIG = "y" ]]; then
-  echo "Using google-ads.yaml"
-  # update Dockerfile to copy google-ads.yaml:
-  sed -i -e "s|##*[[:space:]]*COPY google-ads.yaml \..*$|COPY google-ads.yaml \.|" ./Dockerfile
-fi
-
-# Inside this hook script we have available the following variables:
-# $GOOGLE_CLOUD_PROJECT - Google Cloud project
-# $GOOGLE_CLOUD_REGION - selected Google Cloud Region
-# $K_SERVICE - Cloud Run service name
-# $IMAGE_URL - container image URL
-# $APP_DIR - application directory
 
 gcloud config set project $GOOGLE_CLOUD_PROJECT
 
-PROJECT_NUMBER=$(gcloud projects describe $GOOGLE_CLOUD_PROJECT --format="csv(projectNumber)" | tail -n 1)
-SERVICE_ACCOUNT=$PROJECT_NUMBER-compute@developer.gserviceaccount.com
 
-gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT --member=serviceAccount:$SERVICE_ACCOUNT --role=roles/resourcemanager.projectIamAdmin
-
-gcloud services enable compute.googleapis.com
-gcloud services enable artifactregistry.googleapis.com
-gcloud services enable run.googleapis.com
-gcloud services enable cloudresourcemanager.googleapis.com
-gcloud services enable iamcredentials.googleapis.com
-gcloud services enable cloudbuild.googleapis.com
-gcloud services enable cloudfunctions.googleapis.com
-gcloud services enable eventarc.googleapis.com
-gcloud services enable googleads.googleapis.com
-gcloud services enable cloudscheduler.googleapis.com
-
+# Install ARP dependencies
 echo -e "${CYAN}Creating Python virtual environment...${WHITE}"
 python3 -m venv .venv
 . .venv/bin/activate
 python3 -m pip install -r requirements.txt
 
+# generate ARP configuration
 echo -e "${CYAN}Generating App Reporting pack configuration...${WHITE}"
-# generate ARP config and optionally google-ads.yaml (if it wasn't uploaded in cloud shell vm)
 RUNNING_IN_GCE=true
 export RUNNING_IN_GCE   # signaling to run-local.sh that we're runnign inside GCE (there'll be less questions)
 ./run-local.sh --generate-config-only
 
-echo -e "${CYAN}Deploying Cloud components...${WHITE}"
 # deploy solution
+echo -e "${CYAN}Deploying Cloud components...${WHITE}"
 ./gcp/setup.sh deploy_public_index deploy_all start
 
 echo -e "${CYAN}Please ignore all output below${WHITE}"
