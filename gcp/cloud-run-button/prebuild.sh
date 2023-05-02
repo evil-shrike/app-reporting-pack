@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e
 #set -x
-# reset console colors:
-tput init
-tput setaf 7 && tput setab 0
 
 cd ../..
 

@@ -272,13 +272,27 @@ deploy_all() {
 }
 
 
-for i in "$@"; do
-  "$i"
-  exitcode=$?
-  if [ $exitcode -ne 0 ]; then
-    echo "Breaking script as command '$i' failed"
-    exit $exitcode
-  fi
-done
+_list_functions() {
+  # list all functions in this file not starting with "_"
+  declare -F | awk '{print $3}' | grep -v "^_"
+}
 
-popd >/dev/null
+
+if [[ $# -eq 0 ]]; then
+  _list_functions
+else
+  for i in "$@"; do
+    if declare -F "$i" > /dev/null; then
+      "$i"
+      exitcode=$?
+      if [ $exitcode -ne 0 ]; then
+        echo "Breaking script as command '$i' failed"
+        exit $exitcode
+      fi
+    else
+      echo -e "\033[0;31mFunction '$i' does not exist.\033[0m"
+    fi
+  done
+fi
+
+popd > /dev/null
